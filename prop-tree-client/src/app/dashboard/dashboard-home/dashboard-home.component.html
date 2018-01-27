@@ -13,7 +13,7 @@
     <div class="scrolling">
       <ul>
         <li *ngFor="let file of filteredFiles()">
-          <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)">
+          <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
             {{file}}
           </button>
         </li>
@@ -21,8 +21,8 @@
     </div>
 
   </div>
-  <div class="container" fxFlex="70%" fxLayout="column" fxFill>
-    <div class="container" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" >
+  <div class="container" fxFlex="70%" fxLayout="column" >
+    <div class="container" fxFlex="30rem" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between start" >
       <mat-form-field class="tag-input">
         <mat-select placeholder="New Tag" [(ngModel)]="newTag" (change)="getFiles()">
           <mat-option *ngFor="let tag of tags" [value]="tag">
@@ -38,13 +38,17 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button [disabled]="!(!loading && selectedFile)" mat-fab color="primary" (click)="export()">Export</button>
     </div>
     <div class="scrolling">
       <div *ngIf="loading">
         <mat-spinner class="loading-spinner"></mat-spinner>
       </div>
       <div *ngIf="!loading && selectedFile" class="container" fxLayout="column">
-        <div><h2>{{selectedFile}}</h2></div>
+        <div fxLayout="row">
+          <h2>{{selectedFile}}</h2>
+        </div>
         <div>
           <h3>Added</h3>
           <div class="mat-elevation-z8">

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import {Property, PropertyService} from "../property.service";
 import {MatTableDataSource} from "@angular/material";
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -78,4 +79,75 @@ export class DashboardHomeComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  export(){
+
+    let data: CsvData[] =[];
+
+    data.push({
+      property: this.selectedFile
+    });
+
+    data.push({
+      property: ""
+    });
+
+    data.push({
+      property: "Added"
+    });
+
+    this.added.forEach(p =>{
+      data.push({
+        property: p.propertyName,
+        value: p.propertyValue
+      });
+    });
+
+    data.push({
+      property: ""
+    });
+
+    data.push({
+      property: "Changed"
+    });
+
+    this.changed.forEach(p =>{
+      data.push({
+        property: p.propertyName,
+        value: p.propertyValue
+      });
+    });
+
+    data.push({
+      property: ""
+    });
+
+    data.push({
+      property: "Rmoved"
+    });
+
+    this.removed.forEach(p =>{
+      data.push({
+        property: p.propertyName,
+        value: p.propertyValue
+      });
+    });
+
+    var options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: true,
+      useBom: true
+    };
+
+    new Angular2Csv(data, this.selectedFile + ".csv", options);
+
+  }
+}
+
+interface CsvData {
+  property: string;
+  value?: string;
 }

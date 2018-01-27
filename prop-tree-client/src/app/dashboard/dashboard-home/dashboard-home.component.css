@@ -22,7 +22,10 @@ li {
 }
 
 button {
-  min-width: 90%;
+}
+
+.file-button {
+  width: 90%;
   margin-bottom: 1rem;
 }
 

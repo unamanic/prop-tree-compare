@@ -35,5 +35,5 @@ export interface Property {
   fileName: string;
   tag: string;
   propertyName: string;
-  propertyValus: string;
+  propertyValue: string;
 }
