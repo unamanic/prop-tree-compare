@@ -1,0 +1,4 @@
+rootProject.name = 'prop-tree-compare'
+
+include 'prop-tree-server',
+        'prop-tree-client'
