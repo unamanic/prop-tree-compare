@@ -35,33 +35,18 @@ li {
   box-sizing: content-box !important;
 }
 
-/*.flexitem {*/
-  /*text-align: center;*/
-  /*line-height: 100px;*/
-  /*width: 150px;*/
-  /*height: 100px;*/
-  /*margin: 2px;*/
-  /*box-shadow: none !important;*/
-  /*padding: 0 !important;*/
-/*}*/
-
 div .scrolling {
   overflow-y: auto;
 }
-
-/*div .file-area {*/
-  /*min-width: 300px;*/
-/*}*/
 
 .loading-spinner{
   margin: auto;
 }
 
-/*.tag-input {*/
-  /*width: 40%;*/
-  /*min-width: 300px;*/
-  /*max-width: 400px;*/
-/*}*/
+.tag-input {
+  width: 90%;
+  margin: auto;
+}
 
 .full-height {
   height: 85vh;
