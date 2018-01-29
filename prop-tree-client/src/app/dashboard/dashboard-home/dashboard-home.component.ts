@@ -123,7 +123,7 @@ export class DashboardHomeComponent implements OnInit {
     });
 
     data.push({
-      property: "Rmoved"
+      property: "Removed"
     });
 
     this.removed.forEach(p =>{
@@ -133,7 +133,7 @@ export class DashboardHomeComponent implements OnInit {
       });
     });
 
-    var options = {
+    let options = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalseparator: '.',
