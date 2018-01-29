@@ -1,9 +1,9 @@
-mat-sidenav {
-  width: 200px;
-}
-mat-sidenav-container {
-  height: 100%;
-}
+/*mat-sidenav {*/
+  /*width: 200px;*/
+/*}*/
+/*mat-sidenav-container {*/
+  /*height: 100%;*/
+/*}*/
 
 ul {
   list-style: none;
@@ -16,13 +16,13 @@ li {
 
 }
 
-.file-filter {
-  width: 100%;
-  padding: 0px;
-}
+/*.file-filter {*/
+  /*width: 100%;*/
+  /*padding: 0px;*/
+/*}*/
 
-button {
-}
+/*button {*/
+/*}*/
 
 .file-button {
   width: 90%;
@@ -30,36 +30,39 @@ button {
 }
 
 .containerX {
-  height: 90vh;
   padding: 5px;
   border: solid 1px #b6b6b6;
   box-sizing: content-box !important;
 }
 
-.flexitem {
-  text-align: center;
-  line-height: 100px;
-  width: 150px;
-  height: 100px;
-  margin: 2px;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
+/*.flexitem {*/
+  /*text-align: center;*/
+  /*line-height: 100px;*/
+  /*width: 150px;*/
+  /*height: 100px;*/
+  /*margin: 2px;*/
+  /*box-shadow: none !important;*/
+  /*padding: 0 !important;*/
+/*}*/
 
-div.scrolling {
+div .scrolling {
   overflow-y: auto;
 }
 
-div .file-area {
-  min-width: 300px;
-}
+/*div .file-area {*/
+  /*min-width: 300px;*/
+/*}*/
 
 .loading-spinner{
   margin: auto;
 }
 
-.tag-input {
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
+/*.tag-input {*/
+  /*width: 40%;*/
+  /*min-width: 300px;*/
+  /*max-width: 400px;*/
+/*}*/
+
+.full-height {
+  height: 85vh;
 }

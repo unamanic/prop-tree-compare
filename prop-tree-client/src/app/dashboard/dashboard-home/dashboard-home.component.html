@@ -1,67 +1,114 @@
-<mat-toolbar>
-  <span>Prop-Tree-Compare</span>
+<div fxLayout="column" class="full-height">
+  <mat-toolbar>
+    <span>Prop-Tree-Compare</span>
 
-</mat-toolbar>
-<div fxLayout="row" ngxSplit="row" fxLayoutAlign="start stretch" fxLayoutGap="10px" class="containerX">
-  <div fxFlex="30%" class="file-area" fxLayout="column">
-    <div>
-      <mat-form-field class="file-filter">
+  </mat-toolbar>
+
+  <div fxFlex="90" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutWrap fxFlexFill>
+    <div fxFlex="30">
+      <mat-form-field>
         <input matInput placeholder="File Filter" [(ngModel)]="fileFilter">
       </mat-form-field>
     </div>
 
-    <div class="scrolling">
-      <ul>
-        <li *ngFor="let file of filteredFiles()">
-          <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
-            {{file}}
-          </button>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-  <div class="container" fxFlex="70%" fxLayout="column" >
-    <div class="container" fxFlex="30rem" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between start" >
-      <mat-form-field class="tag-input">
+    <div fxFlex="30">
+      <mat-form-field>
         <mat-select placeholder="New Tag" [(ngModel)]="newTag" (change)="getFiles()">
           <mat-option *ngFor="let tag of tags" [value]="tag">
             {{tag}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
 
-      <mat-form-field class="tag-input">
+    <div fxFlex="30">
+      <mat-form-field>
         <mat-select placeholder="Old Tag" [(ngModel)]="oldTag">
           <mat-option *ngFor="let tag of tags" [value]="tag">
             {{tag}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-      <button [disabled]="!(!loading && selectedFile)" mat-fab color="primary" (click)="export()">Export</button>
     </div>
-    <div class="scrolling">
-      <div *ngIf="loading">
-        <mat-spinner class="loading-spinner"></mat-spinner>
+
+    <div fxFlex="10">
+      <button [disabled]="!(!loading && selectedFile)" mat-fab color="primary" (click)="export()">
+        Export
+      </button>
+    </div>
+    <div fxFlex="100%" fxLayoutAlign="stretch" class="full-height">
+      <div fxFlex="30" class="scrolling containerX">
+        <ul>
+          <li *ngFor="let file of filteredFiles()">
+            <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
+              {{file}}
+            </button>
+          </li>
+        </ul>
       </div>
-      <div *ngIf="!loading && selectedFile" class="container" fxLayout="column">
-        <div fxLayout="row">
-          <h2>{{selectedFile}}</h2>
+
+      <div class="scrolling containerX" fxFlex="70">
+        <div *ngIf="loading">
+          <mat-spinner class="loading-spinner"></mat-spinner>
         </div>
-        <div>
-          <h3>Added</h3>
+        <div *ngIf="!loading && selectedFile" fxLayout="column">
+          <div fxLayout="row">
+            <h2>{{selectedFile}}</h2>
+          </div>
+          <div>
+            <h3>Added</h3>
+            <div class="mat-elevation-z8">
+              <mat-table [dataSource]="addedDataSource">
+
+                <ng-container matColumnDef="propertyName">
+                  <mat-header-cell *matHeaderCellDef> PropertyName</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.propertyName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="propertyValue">
+                  <mat-header-cell *matHeaderCellDef> Property Value</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.propertyValue}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div>
+            <h3>Changed</h3>
+          </div>
           <div class="mat-elevation-z8">
-            <mat-table [dataSource]="addedDataSource">
+            <mat-table [dataSource]="changedDataSource">
 
               <ng-container matColumnDef="propertyName">
-                <mat-header-cell *matHeaderCellDef> PropertyName </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.propertyName}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> PropertyName</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.propertyName}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="propertyValue">
-                <mat-header-cell *matHeaderCellDef> Property Value </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.propertyValue}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Property Value</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.propertyValue}}</mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+          <div>
+            <h3>Removed</h3>
+          </div>
+          <div class="mat-elevation-z8">
+            <mat-table [dataSource]="removedDataSource">
+
+              <ng-container matColumnDef="propertyName">
+                <mat-header-cell *matHeaderCellDef> PropertyName</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.propertyName}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="propertyValue">
+                <mat-header-cell *matHeaderCellDef> Property Value</mat-header-cell>
+                <mat-cell *matCellDef="let element"> ***Removed***</mat-cell>
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -69,48 +116,9 @@
             </mat-table>
           </div>
         </div>
-        <div>
-          <h3>Changed</h3>
-        </div>
-        <div class="mat-elevation-z8">
-          <mat-table [dataSource]="changedDataSource">
-
-            <ng-container matColumnDef="propertyName">
-              <mat-header-cell *matHeaderCellDef> PropertyName </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.propertyName}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="propertyValue">
-              <mat-header-cell *matHeaderCellDef> Property Value </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.propertyValue}} </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
-        </div>
-        <div>
-          <h3>Removed</h3>
-        </div>
-        <div class="mat-elevation-z8">
-          <mat-table [dataSource]="removedDataSource">
-
-            <ng-container matColumnDef="propertyName">
-              <mat-header-cell *matHeaderCellDef> PropertyName </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.propertyName}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="propertyValue">
-              <mat-header-cell *matHeaderCellDef> Property Value </mat-header-cell>
-              <mat-cell *matCellDef="let element"> ***Removed*** </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          </mat-table>
-        </div>
       </div>
+
     </div>
   </div>
-
 </div>
+
