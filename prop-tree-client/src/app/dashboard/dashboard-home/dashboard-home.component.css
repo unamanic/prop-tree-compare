@@ -48,6 +48,7 @@ div .scrolling {
   margin: auto;
 }
 
-.full-height {
-  height: 85vh;
+.full-size {
+  width: 100%;
+  height: 100%;
 }
