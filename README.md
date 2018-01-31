@@ -10,6 +10,6 @@ PropTreeCompare builds using gradle.  To build a combined 'Fat Jar' execute the 
 
 ### Usage
 
-`java -jar prop-tree-server-0.0.1-SNAPSHOT.jar [tag1] [path1] [tag2] [path2]...`
+`java -jar prop-tree-server-0.9.1.jar [tag1] [path1] [tag2] [path2]...`
 
 Then open a browser to http://localhost:8080
