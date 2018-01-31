@@ -1,6 +1,8 @@
 package com.unamanic.proptreecompare.propertymanager;
 
+import com.unamanic.proptreecompare.model.FileEntity;
 import com.unamanic.proptreecompare.model.PropertyEntity;
+import com.unamanic.proptreecompare.repositories.FileEntityRepository;
 import com.unamanic.proptreecompare.repositories.PropertyEntityRepository;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +16,11 @@ import java.util.Properties;
 public class PropertyIngestorImpl implements PropertyIngestor {
 
     private final PropertyEntityRepository propertyEntityRepository;
+    private final FileEntityRepository fileEntityRepository;
 
-    public PropertyIngestorImpl(PropertyEntityRepository propertyEntityRepository) {
+    public PropertyIngestorImpl(PropertyEntityRepository propertyEntityRepository, FileEntityRepository fileEntityRepository) {
         this.propertyEntityRepository = propertyEntityRepository;
+        this.fileEntityRepository = fileEntityRepository;
     }
 
     public void ingest(String tag, String startingPath){
@@ -40,14 +44,18 @@ public class PropertyIngestorImpl implements PropertyIngestor {
         try {
             props.load(new FileInputStream(f));
 
-            props.stringPropertyNames().stream().forEach(pName -> {
-                PropertyEntity entity = new PropertyEntity();
-                entity.setFileName(f.getName());
-                entity.setPropertyName(pName);
-                entity.setPropertyValue(props.getProperty(pName));
-                entity.setTag(tag);
+            fileEntityRepository.save(FileEntity.builder()
+                    .fileName(f.getName())
+                    .tag(tag)
+                    .build());
 
-                this.propertyEntityRepository.save(entity);
+            props.stringPropertyNames().stream().forEach(pName -> {
+                this.propertyEntityRepository.save(PropertyEntity.builder()
+                        .fileName(f.getName())
+                        .tag(tag)
+                        .propertyName(pName)
+                        .propertyValue(props.getProperty(pName))
+                        .build());
             });
         } catch (IOException e) {
             e.printStackTrace();

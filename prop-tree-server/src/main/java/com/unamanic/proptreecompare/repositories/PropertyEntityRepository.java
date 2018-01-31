@@ -12,11 +12,7 @@ import java.util.Set;
 @Service
 public interface PropertyEntityRepository extends JpaRepository<PropertyEntity, Long> {
 
-    @Query("select distinct p.fileName from PropertyEntity p where p.tag = :tag order by p.fileName")
-    List<String> findDistinctFileNameByTag(@Param("tag") String tag);
 
-    @Query("select distinct p.tag from PropertyEntity p order by p.tag")
-    List<String> findDistinctTags();
 
     List<PropertyEntity> findByFileNameAndTag(String filename, String tag);
 

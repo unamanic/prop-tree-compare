@@ -1,6 +1,7 @@
 package com.unamanic.proptreecompare.controllers;
 
 import com.unamanic.proptreecompare.model.PropertyEntity;
+import com.unamanic.proptreecompare.repositories.FileEntityRepository;
 import com.unamanic.proptreecompare.repositories.PropertyEntityRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,19 +14,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class PropertyController {
     private final PropertyEntityRepository propertyEntityRepository;
+    private final FileEntityRepository fileEntityRepository;
 
-    public PropertyController(PropertyEntityRepository propertyEntityRepository) {
+    public PropertyController(PropertyEntityRepository propertyEntityRepository, FileEntityRepository fileEntityRepository) {
         this.propertyEntityRepository = propertyEntityRepository;
+        this.fileEntityRepository = fileEntityRepository;
     }
 
     @GetMapping("/tags")
     public List<String> findFileNamesForTag() {
-        return propertyEntityRepository.findDistinctTags();
+        return fileEntityRepository.findDistinctTags();
     }
 
     @GetMapping("/fileNames/{tag}")
     public List<String> findFileNamesForTag(@PathVariable String tag) {
-        return propertyEntityRepository.findDistinctFileNameByTag(tag);
+        return fileEntityRepository.findDistinctFileNameByTag(tag);
     }
 
     @GetMapping("/id/{id}")
