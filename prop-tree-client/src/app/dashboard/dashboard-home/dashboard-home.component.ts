@@ -24,7 +24,8 @@ export class DashboardHomeComponent implements OnInit {
 
   private fileFilter: string = "";
 
-  private loading: boolean = false;
+  private diffLoading: boolean = false;
+  private fileLoading: boolean = false;
 
   myControl: FormControl = new FormControl();
   private added: Property[] = [];
@@ -50,7 +51,12 @@ export class DashboardHomeComponent implements OnInit {
 
   getFiles() {
     if(this.newTag) {
-      this.fileService.getFiles(this.newTag).subscribe(files => this.files = files);
+      this.fileLoading = true;
+      this.selectedFile = null;
+      this.fileService.getFiles(this.newTag).subscribe(files => {
+        this.files = files;
+        this.fileLoading = false;
+      });
     }
   }
 
@@ -61,7 +67,7 @@ export class DashboardHomeComponent implements OnInit {
   select(file: string): void{
     this.selectedFile = file;
 
-    this.loading = true;
+    this.diffLoading = true;
 
     Observable.forkJoin(
       this.propertyService.getAdded(this.selectedFile, this.newTag, this.oldTag),
@@ -76,7 +82,7 @@ export class DashboardHomeComponent implements OnInit {
       this.changedDataSource = new MatTableDataSource<Property>(this.changed);
       this.removedDataSource = new MatTableDataSource<Property>(this.removed);
 
-      this.loading = false;
+      this.diffLoading = false;
     });
   }
 
@@ -144,6 +150,10 @@ export class DashboardHomeComponent implements OnInit {
 
     new Angular2Csv(data, this.selectedFile + ".csv", options);
 
+  }
+
+  clearSelected() {
+    this.selectedFile = null;
   }
 }
 

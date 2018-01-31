@@ -18,7 +18,7 @@
 
     <div fxFlex="1 1 30%">
       <mat-form-field class="tag-input">
-        <mat-select placeholder="Old Tag" [(ngModel)]="oldTag">
+        <mat-select placeholder="Old Tag" [(ngModel)]="oldTag" (change)="clearSelected()">
           <mat-option *ngFor="let tag of tags" [value]="tag">
             {{tag}}
           </mat-option>
@@ -27,27 +27,33 @@
     </div>
 
     <div>
-      <button [disabled]="!(!loading && selectedFile)" mat-fab color="primary" (click)="export()">
+      <button [disabled]="!(!diffLoading && selectedFile)" mat-fab color="primary" (click)="export()">
         Export
       </button>
     </div>
   </div>
   <div fxFlex fxLayoutAlign="stretch">
     <mat-card fxFlex="30" class="scrolling">
-      <ul>
-        <li *ngFor="let file of filteredFiles()">
-          <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
-            {{file}}
-          </button>
-        </li>
-      </ul>
+      <div *ngIf="fileLoading">
+        <mat-spinner class="loading-spinner"></mat-spinner>
+      </div>
+      <div *ngIf="!fileLoading">
+        <ul>
+          <li *ngFor="let file of filteredFiles()">
+            <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
+              {{file}}
+            </button>
+          </li>
+        </ul>
+      </div>
+
     </mat-card>
 
     <mat-card class="scrolling" fxFlex="70">
-      <div *ngIf="loading">
+      <div *ngIf="diffLoading">
         <mat-spinner class="loading-spinner"></mat-spinner>
       </div>
-      <div *ngIf="!loading && selectedFile" fxLayout="column">
+      <div *ngIf="!diffLoading && selectedFile" fxLayout="column">
         <mat-card-header>
           <h2>{{selectedFile}}</h2>
         </mat-card-header>
