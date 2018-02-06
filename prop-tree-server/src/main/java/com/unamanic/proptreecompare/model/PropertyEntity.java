@@ -2,10 +2,7 @@ package com.unamanic.proptreecompare.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -18,9 +15,9 @@ public class PropertyEntity {
     @GeneratedValue
     private Long id;
 
-    private String fileName;
-    private String relPath;
-    private String tag;
+    @Access(AccessType.PROPERTY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private FileEntity file;
     private String propertyName;
     @Column(length = 100000)
     private  String propertyValue;

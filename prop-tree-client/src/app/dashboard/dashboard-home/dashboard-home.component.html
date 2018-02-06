@@ -41,7 +41,7 @@
         <ul>
           <li *ngFor="let file of filteredFiles()">
             <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
-              {{file}}
+              {{file.fileName}}
             </button>
           </li>
         </ul>
@@ -55,7 +55,7 @@
       </div>
       <div *ngIf="!diffLoading && selectedFile" fxLayout="column">
         <mat-card-header>
-          <h2>{{selectedFile}}</h2>
+          <h2>{{selectedFile.fileName}}</h2>
         </mat-card-header>
         <div>
           <h3>Added</h3>

@@ -17,16 +17,16 @@ export class PropertyService {
 
   }
 
-  getChanged(fileName: string, sourceTag: string, destTag: string): Observable<Property[]>  {
-    return this.httpClient.get<Property[]>(this.uri + "/changed/" + fileName + "/" + sourceTag + "/" + destTag);
+  getChanged(fileId: number, sourceTag: string, destTag: string): Observable<Property[]>  {
+    return this.httpClient.get<Property[]>(this.uri + "/changed/" + fileId + "/" + sourceTag + "/" + destTag);
   }
 
-  getAdded(fileName: string, sourceTag: string, destTag: string): Observable<Property[]> {
-    return this.httpClient.get<Property[]>(this.uri + "/added/" + fileName + "/" + sourceTag + "/" + destTag);
+  getAdded(fileId: number, sourceTag: string, destTag: string): Observable<Property[]> {
+    return this.httpClient.get<Property[]>(this.uri + "/added/" + fileId + "/" + sourceTag + "/" + destTag);
   }
 
-  getRemoved(fileName: string, sourceTag: string, destTag: string): Observable<Property[]> {
-    return this.httpClient.get<Property[]>(this.uri + "/removed/" + fileName + "/" + sourceTag + "/" + destTag);
+  getRemoved(fileId: number, sourceTag: string, destTag: string): Observable<Property[]> {
+    return this.httpClient.get<Property[]>(this.uri + "/removed/" + fileId + "/" + sourceTag + "/" + destTag);
   }
 }
 
