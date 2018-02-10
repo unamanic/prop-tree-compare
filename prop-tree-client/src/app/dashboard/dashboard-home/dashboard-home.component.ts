@@ -19,7 +19,6 @@ export class DashboardHomeComponent implements OnInit {
   private newTag: string;
   private oldTag: string;
 
-  private files: FileEntity[] = [];
   private selectedFile: FileEntity;
 
   private fileFilter: string = "";
@@ -41,27 +40,11 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(
     private tagService: TagService,
-    private fileService: FileService,
     private propertyService: PropertyService
   ) { }
 
   ngOnInit() {
     this.tagService.getTags().subscribe(tags => this.tags = tags);
-  }
-
-  getFiles() {
-    if(this.newTag) {
-      this.fileLoading = true;
-      this.selectedFile = null;
-      this.fileService.getFiles(this.newTag).subscribe(files => {
-        this.files = files;
-        this.fileLoading = false;
-      });
-    }
-  }
-
-  filteredFiles(): FileEntity[]{
-    return this.files.filter(f => f.fileName.lastIndexOf(this.fileFilter) >= 0);
   }
 
   select(file: FileEntity): void{
@@ -148,7 +131,7 @@ export class DashboardHomeComponent implements OnInit {
       useBom: true
     };
 
-    new Angular2Csv(data, this.selectedFile + ".csv", options);
+    new Angular2Csv(data, this.selectedFile.fileName + ".csv", options);
 
   }
 

@@ -19,9 +19,9 @@ public class PropertyController {
         this.propertyEntityRepository = propertyEntityRepository;
     }
 
-    @GetMapping("/id/{id}")
-    public PropertyEntity findOne(@PathVariable Long id) {
-        return propertyEntityRepository.findOne(id);
+    @GetMapping("/file/{id}")
+    public List<PropertyEntity> findByFile(@PathVariable Long id) {
+        return propertyEntityRepository.findAllByFileId(id);
     }
 
     @GetMapping("/changed/{fileId}/{sourceTag}/{destTag}")

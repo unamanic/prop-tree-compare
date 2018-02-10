@@ -13,6 +13,8 @@ import java.util.Set;
 public interface PropertyEntityRepository extends JpaRepository<PropertyEntity, Long> {
 
 
+    @Query("select p from PropertyEntity p where p.file.id = :fileId order by p.propertyName")
+    List<PropertyEntity> findAllByFileId(@Param("fileId") Long fileId);
 
     @Query("select p from PropertyEntity p where p.file.id = :fileId and p.file.tag = :sourceTag and p.propertyName not in " +
             "(select np.propertyName from PropertyEntity np where np.file.relPath = p.file.relPath and np.file.tag = :destTag) " +

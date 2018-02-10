@@ -28,6 +28,10 @@ export class PropertyService {
   getRemoved(fileId: number, sourceTag: string, destTag: string): Observable<Property[]> {
     return this.httpClient.get<Property[]>(this.uri + "/removed/" + fileId + "/" + sourceTag + "/" + destTag);
   }
+
+  getProperties(fileId: number): Observable<Property[]> {
+    return this.httpClient.get<Property[]>(this.uri +  "/file/" + fileId )
+  }
 }
 
 export interface Property {

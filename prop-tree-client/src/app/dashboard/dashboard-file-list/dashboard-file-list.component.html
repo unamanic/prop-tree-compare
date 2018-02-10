@@ -1,0 +1,15 @@
+<div>
+  <div *ngIf="fileLoading">
+    <mat-spinner class="loading-spinner"></mat-spinner>
+  </div>
+  <div *ngIf="!fileLoading">
+    <ul>
+      <li *ngFor="let file of filteredFiles()">
+        <button mat-raised-button [disabled]="file == selectedFile" (click)="select(file)" class="file-button">
+          {{file.fileName}}
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
