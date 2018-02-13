@@ -10,11 +10,13 @@ import {RoutingModule} from "./routing/routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import { PtcHeaderComponent } from './ptc-header/ptc-header.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PtcHeaderComponent
   ],
   imports: [
     BrowserModule,

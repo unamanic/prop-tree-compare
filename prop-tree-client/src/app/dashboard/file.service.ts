@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 
+export interface FileEntity {
+  id: number,
+  fileName: string,
+  relPath: string,
+  tag: string,
+}
+
 @Injectable()
 export class FileService {
 
-  uri = "api/fileNames";
+  uri = "api/tags";
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
-  getFiles(tag: string): Observable<string[]>{
-    return this.httpClient.get<string[]>(this.uri + "/" + tag)
+  getFiles(tag: string): Observable<FileEntity[]>{
+    return this.httpClient.get<FileEntity[]>(this.uri + "/" + tag + "/files")
   }
 }

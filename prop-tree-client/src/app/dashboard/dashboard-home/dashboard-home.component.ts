@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TagService} from "../tag.service";
-import {FileService} from "../file.service";
+import {FileEntity, FileService} from "../file.service";
 import {FormControl} from "@angular/forms";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
@@ -19,8 +19,7 @@ export class DashboardHomeComponent implements OnInit {
   private newTag: string;
   private oldTag: string;
 
-  private files: string[] = [];
-  private selectedFile: string;
+  private selectedFile: FileEntity;
 
   private fileFilter: string = "";
 
@@ -41,7 +40,6 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(
     private tagService: TagService,
-    private fileService: FileService,
     private propertyService: PropertyService
   ) { }
 
@@ -49,30 +47,15 @@ export class DashboardHomeComponent implements OnInit {
     this.tagService.getTags().subscribe(tags => this.tags = tags);
   }
 
-  getFiles() {
-    if(this.newTag) {
-      this.fileLoading = true;
-      this.selectedFile = null;
-      this.fileService.getFiles(this.newTag).subscribe(files => {
-        this.files = files;
-        this.fileLoading = false;
-      });
-    }
-  }
-
-  filteredFiles(): string[]{
-    return this.files.filter(f => f.lastIndexOf(this.fileFilter) >= 0);
-  }
-
-  select(file: string): void{
+  select(file: FileEntity): void{
     this.selectedFile = file;
 
     this.diffLoading = true;
 
     Observable.forkJoin(
-      this.propertyService.getAdded(this.selectedFile, this.newTag, this.oldTag),
-      this.propertyService.getChanged(this.selectedFile, this.newTag, this.oldTag),
-      this.propertyService.getRemoved(this.selectedFile, this.newTag, this.oldTag)
+      this.propertyService.getAdded(this.selectedFile.id, this.newTag, this.oldTag),
+      this.propertyService.getChanged(this.selectedFile.id, this.newTag, this.oldTag),
+      this.propertyService.getRemoved(this.selectedFile.id, this.newTag, this.oldTag)
     ).subscribe( (results: Property[][]) =>{
       this.added = results[0];
       this.changed = results[1];
@@ -91,7 +74,7 @@ export class DashboardHomeComponent implements OnInit {
     let data: CsvData[] =[];
 
     data.push({
-      property: this.selectedFile
+      property: this.selectedFile.fileName
     });
 
     data.push({
@@ -148,7 +131,7 @@ export class DashboardHomeComponent implements OnInit {
       useBom: true
     };
 
-    new Angular2Csv(data, this.selectedFile + ".csv", options);
+    new Angular2Csv(data, this.selectedFile.fileName + ".csv", options);
 
   }
 
