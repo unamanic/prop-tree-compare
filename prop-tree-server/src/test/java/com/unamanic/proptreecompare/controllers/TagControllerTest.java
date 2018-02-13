@@ -1,50 +1,32 @@
 package com.unamanic.proptreecompare.controllers;
 
+import com.unamanic.proptreecompare.model.FileEntity;
 import com.unamanic.proptreecompare.repositories.FileEntityRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.refEq;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@WebMvcTest(TagController.class)
 public class TagControllerTest {
 
-    @Mock
+    @MockBean
     private FileEntityRepository fileEntityRepository;
-    @Autowired
-    private WebApplicationContext wac;
-    private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
-        initMocks(this);
-        this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(wac)
-                .build();
-    }
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     public void testInit() throws Exception {
@@ -60,11 +42,31 @@ public class TagControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
-//        verify(this.fileEntityRepository, atLeastOnce()).findDistinctTags();
+        verify(this.fileEntityRepository, atLeastOnce()).findDistinctTags();
     }
 
     @Test
     public void findFilesForTagTest() throws Exception {
+        when(this.fileEntityRepository.findByTag("tag_name")).thenReturn(Arrays.asList(
+                FileEntity.builder()
+                        .id(1l)
+                        .fileName("one")
+                        .tag("tag_name")
+                        .relPath("path/path/one")
+                        .build(),
+                FileEntity.builder()
+                        .id(2l)
+                        .fileName("two")
+                        .tag("tag_name")
+                        .relPath("path/path/two")
+                        .build()
+        ));
+
+        this.mockMvc.perform(get("/api/tags/tag_name/files")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        verify(this.fileEntityRepository, atLeastOnce()).findByTag("tag_name");
     }
 
 }

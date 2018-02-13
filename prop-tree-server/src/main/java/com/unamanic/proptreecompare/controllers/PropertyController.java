@@ -15,7 +15,7 @@ import java.util.List;
 public class PropertyController {
     private final PropertyEntityRepository propertyEntityRepository;
 
-    public PropertyController(PropertyEntityRepository propertyEntityRepository, FileEntityRepository fileEntityRepository) {
+    public PropertyController(PropertyEntityRepository propertyEntityRepository) {
         this.propertyEntityRepository = propertyEntityRepository;
     }
 
