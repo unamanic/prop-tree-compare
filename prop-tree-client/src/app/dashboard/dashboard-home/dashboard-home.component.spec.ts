@@ -13,6 +13,7 @@ import {of} from "rxjs/observable/of";
 import {Observable} from "rxjs/Observable";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {By} from "protractor";
+import {DashboardFileListComponent} from "../dashboard-file-list/dashboard-file-list.component";
 
 describe('DashboardHomeComponent', () => {
   let component: DashboardHomeComponent;
@@ -42,7 +43,10 @@ describe('DashboardHomeComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [DashboardHomeComponent],
+      declarations: [
+        DashboardHomeComponent,
+        DashboardFileListComponent
+      ],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,

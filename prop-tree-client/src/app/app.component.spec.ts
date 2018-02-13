@@ -6,12 +6,14 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
+import {PtcHeaderComponent} from "./ptc-header/ptc-header.component";
 describe('AppComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        PtcHeaderComponent
       ],
       imports: [
         BrowserModule,
