@@ -1,0 +1,5 @@
+language: java
+install: gradle node
+jdk:
+  - oraclejdk8
+script: gradle buildCombine
