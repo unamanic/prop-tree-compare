@@ -18,6 +18,7 @@ public class FileEntity {
     private Long id;
 
     private String fileName;
+    private String relPath;
     private String tag;
 
 }

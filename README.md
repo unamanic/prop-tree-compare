@@ -1,4 +1,4 @@
-## PropTreeCompare
+## PropTreeCompare [![Build Status](https://travis-ci.org/unamanic/prop-tree-compare.svg?branch=master)](https://travis-ci.org/unamanic/prop-tree-compare)
 
 PropTreeCompare compares property files of the same name in different directory trees. 
 

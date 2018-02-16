@@ -14,39 +14,27 @@ import java.util.List;
 @RequestMapping("/api")
 public class PropertyController {
     private final PropertyEntityRepository propertyEntityRepository;
-    private final FileEntityRepository fileEntityRepository;
 
-    public PropertyController(PropertyEntityRepository propertyEntityRepository, FileEntityRepository fileEntityRepository) {
+    public PropertyController(PropertyEntityRepository propertyEntityRepository) {
         this.propertyEntityRepository = propertyEntityRepository;
-        this.fileEntityRepository = fileEntityRepository;
     }
 
-    @GetMapping("/tags")
-    public List<String> findFileNamesForTag() {
-        return fileEntityRepository.findDistinctTags();
+    @GetMapping("/file/{id}")
+    public List<PropertyEntity> findByFile(@PathVariable Long id) {
+        return propertyEntityRepository.findAllByFileId(id);
     }
 
-    @GetMapping("/fileNames/{tag}")
-    public List<String> findFileNamesForTag(@PathVariable String tag) {
-        return fileEntityRepository.findDistinctFileNameByTag(tag);
+    @GetMapping("/changed/{fileId}/{sourceTag}/{destTag}")
+    public List<PropertyEntity> findChanged(@PathVariable Long fileId, @PathVariable String sourceTag, @PathVariable String destTag) {
+        return propertyEntityRepository.findChangedByFileIdAndTags(fileId, sourceTag, destTag);
     }
-
-    @GetMapping("/id/{id}")
-    public PropertyEntity findOne(@PathVariable Long id) {
-        return propertyEntityRepository.findOne(id);
+    @GetMapping("/added/{fileId}/{sourceTag}/{destTag}")
+    public List<PropertyEntity> findAdded(@PathVariable Long fileId, @PathVariable String sourceTag, @PathVariable String destTag) {
+        return propertyEntityRepository.findAddedInByFileIdAndTags(fileId, sourceTag, destTag);
     }
-
-    @GetMapping("/changed/{fileName}/{sourceTag}/{destTag}")
-    public List<PropertyEntity> findChanged(@PathVariable String fileName, @PathVariable String sourceTag, @PathVariable String destTag) {
-        return propertyEntityRepository.findChangedByFileNameAndTags(fileName, sourceTag, destTag);
-    }
-    @GetMapping("/added/{fileName}/{sourceTag}/{destTag}")
-    public List<PropertyEntity> findAdded(@PathVariable String fileName, @PathVariable String sourceTag, @PathVariable String destTag) {
-        return propertyEntityRepository.findNotInByFileNameAndTags(fileName, sourceTag, destTag);
-    }
-    @GetMapping("/removed/{fileName}/{sourceTag}/{destTag}")
-    public List<PropertyEntity> findRemoved(@PathVariable String fileName, @PathVariable String sourceTag, @PathVariable String destTag) {
-        return propertyEntityRepository.findNotInByFileNameAndTags(fileName, destTag, sourceTag);
+    @GetMapping("/removed/{fileId}/{sourceTag}/{destTag}")
+    public List<PropertyEntity> findRemoved(@PathVariable Long fileId, @PathVariable String sourceTag, @PathVariable String destTag) {
+        return propertyEntityRepository.findRemovedInByFileIdAndTags(fileId, sourceTag, destTag);
     }
 
 

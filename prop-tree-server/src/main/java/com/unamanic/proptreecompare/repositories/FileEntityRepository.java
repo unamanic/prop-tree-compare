@@ -13,4 +13,7 @@ public interface FileEntityRepository extends JpaRepository<FileEntity, Long> {
 
     @Query("select distinct f.tag from FileEntity f order by f.tag")
     List<String> findDistinctTags();
+
+    @Query("select f from FileEntity f where f.tag = :tag order by f.fileName")
+    List<FileEntity> findByTag(@Param("tag")String tag);
 }

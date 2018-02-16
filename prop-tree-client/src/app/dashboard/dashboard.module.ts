@@ -7,6 +7,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FileService} from "./file.service";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {PropertyService} from "./property.service";
+import { DashboardPropListComponent } from './dashboard-prop-list/dashboard-prop-list.component';
+import { DashboardFileListComponent } from './dashboard-file-list/dashboard-file-list.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import {PropertyService} from "./property.service";
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  declarations: [DashboardHomeComponent],
+  declarations: [DashboardHomeComponent, DashboardPropListComponent, DashboardFileListComponent],
   providers: [TagService, FileService, PropertyService]
 })
 export class DashboardModule { }
