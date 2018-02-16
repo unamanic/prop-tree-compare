@@ -89,6 +89,12 @@ task bootStandaloneClientWatch(type: GradleBuild) {
 //    finalizedBy 'npm_shutdown'
 }
 
+task npmTest(type: NpmTask, dependsOn: npmInstall) {
+  group 'build client'
+  description = 'Compile client side folder for development'
+  args = ['run', 'test']
+}
+
 //------------------------------------------------------------------------------------------------------------------------
 //    Tasks - Integrated client
 //------------------------------------------------------------------------------------------------------------------------

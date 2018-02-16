@@ -24,7 +24,7 @@ task bootFullApplication(type: GradleBuild) {
 
 task buildCombined(type: GradleBuild) {
     group 'application'
-    setTasks([':prop-tree-client:npmUpdate', ':prop-tree-client:clean', ':prop-tree-client:buildClientToSpring', ':prop-tree-server:build'])
+    setTasks([':prop-tree-client:npmUpdate', ':prop-tree-client:clean', ':prop-tree-client:npmTest', ':prop-tree-client:buildClientToSpring', ':prop-tree-server:build'])
 }
 
 
