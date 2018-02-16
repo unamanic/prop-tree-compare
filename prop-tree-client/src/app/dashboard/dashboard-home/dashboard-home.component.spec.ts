@@ -12,7 +12,6 @@ import {FileService} from "../file.service";
 import {of} from "rxjs/observable/of";
 import {Observable} from "rxjs/Observable";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {By} from "protractor";
 import {DashboardFileListComponent} from "../dashboard-file-list/dashboard-file-list.component";
 
 describe('DashboardHomeComponent', () => {
@@ -72,11 +71,4 @@ describe('DashboardHomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // it('should call the File Service when getting files', () => {
-  //   const newTagSelect = fixture.debugElement.query(By.id('newTagSelect')).nativeElement;
-  //   newTagSelect.value = 'Tag1';
-  //   component.getFiles();
-  //   fixture.detectChanges();
-  // });
 });

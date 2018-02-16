@@ -9,12 +9,11 @@ import {Observable} from "rxjs/Observable";
 })
 export class DashboardFileListComponent implements OnInit {
 
-  private files: FileEntity[] = [];
-  private selectedFile: FileEntity;
-  private fileLoading=false;
   private _tag = null;
   private _fileFilter = null;
-
+  files: FileEntity[] = [];
+  selectedFile: FileEntity;
+  fileLoading=false;
 
   @Input()
   set fileFilter(fileFilter: String){
