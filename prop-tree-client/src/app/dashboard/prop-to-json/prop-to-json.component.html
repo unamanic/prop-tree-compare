@@ -1,3 +1,18 @@
-<p>
-  prop-to-json works!
-</p>
+<div fxLayout="column" fxLayoutAlign="space-between stretch" class="full-size">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex="1 1 50%" fxLayoutAlign="center center">
+      <h2>Properties</h2>
+    </div>
+    <div fxFlex="1 1 50%" fxLayoutAlign="center center">
+      <h2>JSON</h2>
+    </div>
+  </div>
+  <div fxFlex fxLayoutAlign="stretch" class="scrolling">
+    <mat-card fxFlex="1 1 50%">
+      <textarea fxFlex="100%" [(ngModel)]="propsString" (change)="processProps()"></textarea>
+    </mat-card>
+    <mat-card fxFlex="1 1 50%" class="scrolling">
+      <textarea fxFlex="100%" [(ngModel)]="jsonString"></textarea>
+    </mat-card>
+  </div>
+</div>
