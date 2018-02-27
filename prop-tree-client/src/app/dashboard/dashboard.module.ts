@@ -9,6 +9,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {PropertyService} from "./property.service";
 import { DashboardPropListComponent } from './dashboard-prop-list/dashboard-prop-list.component';
 import { DashboardFileListComponent } from './dashboard-file-list/dashboard-file-list.component';
+import { PropToJsonComponent } from './prop-to-json/prop-to-json.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { DashboardFileListComponent } from './dashboard-file-list/dashboard-file
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  declarations: [DashboardHomeComponent, DashboardPropListComponent, DashboardFileListComponent],
+  declarations: [DashboardHomeComponent, DashboardPropListComponent, DashboardFileListComponent, PropToJsonComponent],
   providers: [TagService, FileService, PropertyService]
 })
 export class DashboardModule { }
